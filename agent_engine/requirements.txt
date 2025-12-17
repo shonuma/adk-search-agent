@@ -1,0 +1,7 @@
+google-adk==1.8.0
+fire==0.7.0
+google-cloud-aiplatform[adk,agent_engines]==1.101.0
+google-cloud-discoveryengine==0.13.8
+google-api-core==2.25.1
+uvicorn
+a2a-sdk
