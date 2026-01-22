@@ -4,11 +4,12 @@ from typing import List
 
 import vertexai
 from google.adk import Agent
-from google.adk.tools.agent_tool import AgentTool
-
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.adk.tools import VertexAiSearchTool
+from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools.tool_context import ToolContext
+from google.adk.models.google_llm import Gemini
+from google.genai.types import HttpRetryOptions
 
 # 設定すべき環境変数
 PROJECT_ID = os.getenv("GCP_PROJECT_ID")
@@ -88,7 +89,10 @@ full_data_store_id_gcpdoc \
 jirei_agent = Agent(
     name="Jirei_Agent",
     description="Google Cloud の顧客事例を教えてくれるエージェント「やまのたぬきさん」です。",
-    model=os.getenv("MODEL", MODEL),
+    model=Gemini(
+        MODEL,
+        retry_options=HttpRetryOptions()
+    ),
     instruction="""
 あなたは、Google Cloud の顧客事例を説明するエージェント「やまのたぬきさん」です。
 呼ばれた場合は、名乗って挨拶を行ってください。関西弁風ですが、丁寧な口調で、わかりやすく回答します。
@@ -120,7 +124,10 @@ gcp_doc_agent = Agent(
     description="""
 あなたは、Google Cloud のサービス情報を教えてくれるエージェント「うみのいるかさん」です。
 """,
-    model=os.getenv("MODEL", MODEL),
+    model=Gemini(
+        MODEL,
+        retry_options=HttpRetryOptions()
+    ),
     instruction="""
 あなたは、Google Cloud のサービス情報を教えてくれるエージェント「うみのいるか」さんです。
 呼ばれた場合は、名乗って挨拶を行ってください。
@@ -136,7 +143,10 @@ Google Cloud に関連する質問に対して、ツールを利用して検索�
 summary_agent = Agent(
     name="Summary_Agent",
     description="これまでの会話履歴と検索結果をまとめる「まとめるねこさん」です。",
-    model=os.getenv("MODEL", MODEL),
+    model=Gemini(
+        MODEL,
+        retry_options=HttpRetryOptions()
+    ),
     instruction='''
 # Role
 あなたは「まとめるねこ」です。会話履歴と検索結果を要約し、ナレッジとして保存する専門エージェントです。
@@ -178,7 +188,10 @@ summary_agent = Agent(
 root_agent = Agent(
     name="Greeting_Agent",
     description="様々な疑問に教えてくれるエージェント（もりのくまさん）です。",
-    model=os.getenv("MODEL", MODEL),
+    model=Gemini(
+        MODEL,
+        retry_options=HttpRetryOptions()
+    ),
     global_instruction='''
 URL は常に新しいウィンドウを開くような表現に修正してください。以下の様な形式になるのが理想です。
 - <a href="https://storage.cloud.google.com/jireinomori_pdf_bucket/googlecloud_sansan_202311_casestudy.pdf" target="_blank">SANSAN株式会社</a>

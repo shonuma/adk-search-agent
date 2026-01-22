@@ -2,6 +2,8 @@ import os
 import random
 
 from google.adk.agents import Agent
+from google.adk.models.google_llm import Gemini
+from google.genai.types import HttpRetryOptions
 
 # Vertex AI の API を利用するための環境変数を設定
 os.environ['GOOGLE_GENAI_USE_VERTEXAI'] = 'TRUE'
@@ -27,7 +29,10 @@ def draw_omikuji_tool() -> str:
 # エージェントの定義
 root_agent = Agent(
    # 利用するモデル
-   model=MODEL,
+   model=Gemini(
+      MODEL,
+      retry_options=types.HttpRetryOptions()
+   ),
    # エージェントの名称
    name="omikuji_agent_tool",
    # エージェントの概要

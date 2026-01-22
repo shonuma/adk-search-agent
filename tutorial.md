@@ -543,11 +543,6 @@ export SUMMARY_BUCKET_NAME=${GOOGLE_CLOUD_PROJECT}-adk-search-agent-handson-summ
 export SERVICE_ACCOUNT=adk-search-agent-sa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
 ```
 
-[6] エージェントを ローカル環境で実施する際にアクセスするモデルのリージョン
-```bash
-export GOOGLE_CLOUD_LOCATION=us-central1
-```
-
 上記が設定されたことを確認するために、以下のコマンドを実行してください。
 ```bash
 echo GCP_PROJECT_ID=${GCP_PROJECT_ID}
@@ -555,7 +550,6 @@ echo USECASE_ENGINE_DATASTORE_ID=${USECASE_ENGINE_DATASTORE_ID}
 echo GCP_ENGINE_DATASTORE_ID=${GCP_ENGINE_DATASTORE_ID}
 echo SUMMARY_BUCKET_NAME=${SUMMARY_BUCKET_NAME}
 echo SERVICE_ACCOUNT=${SERVICE_ACCOUNT}
-echo GOOGLE_CLOUD_LOCATION=${GOOGLE_CLOUD_LOCATION}
 ```
 
 変数は正しく設定されているでしょうか。
